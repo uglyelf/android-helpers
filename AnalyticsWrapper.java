@@ -107,7 +107,7 @@ public class AnalyticsWrapper {
      *
      * @param description
      */
-    public synchronized void sendException(String description) {
+    public void sendException(String description) {
         sendException(description, false);
     }
 
@@ -129,7 +129,7 @@ public class AnalyticsWrapper {
      * @param action
      * @param label
      */
-    public synchronized void sendEvent(String category, String action, String label){
+    public void sendEvent(String category, String action, String label){
         sendEvent(category, action, label, 1);
     }
 
@@ -157,11 +157,11 @@ public class AnalyticsWrapper {
      * @param path
      */
     public void sendView(String path) {
-//        synchronized (AnalyticsWrapper.class) {
+       synchronized (AnalyticsWrapper.class) {
             mTracker.setScreenName(path);
             mTracker.send(new HitBuilders.AppViewBuilder().build());
             mTracker.setScreenName(null);
-//        }
+       }
     }
 
     /**
@@ -174,7 +174,7 @@ public class AnalyticsWrapper {
      * @param label
      */
     public void sendViewAndEvent(String path, String category, String action, String label){
-//        synchronized (AnalyticsWrapper.class) {
+       synchronized (AnalyticsWrapper.class) {
             mTracker.setScreenName(path);
             mTracker.send(new HitBuilders.AppViewBuilder().build());
 
@@ -186,7 +186,7 @@ public class AnalyticsWrapper {
                     .build());
 
             mTracker.setScreenName(null);
-//        }
+       }
     }
 
     /**
